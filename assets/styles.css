@@ -1,0 +1,122 @@
+:root {
+  --capner-blue: #4F6DB5;
+  --capner-blue-dark: #3B559A;
+  --capner-green: #3DAE49;
+  --capner-green-dark: #27772F;
+  --capner-green-text: #27772F;
+  --ink: #111111;
+  --ink-soft: #555555;
+  --surface: #ffffff;
+  --surface-muted: #f4f6fa;
+  --border: #e3e7ef;
+  --shadow: 0 2px 10px rgba(17, 17, 17, .14);
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px;
+  --radius: 10px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --topbar-h: 64px;
+  --tap: 44px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #f2f4f8; --ink-soft: #b6bcc8; --surface: #171a21; --surface-muted: #1f232c;
+    --border: #2d323d; --shadow: 0 2px 10px rgba(0, 0, 0, .5);
+    --capner-green-text: #7FD48A;
+  }
+  /* Logo noir sur PNG transparent : pastille blanche pour garder les couleurs de marque */
+  .topbar__logo { background: #fff; border-radius: 8px; padding: 2px 6px; }
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: var(--font); color: var(--ink); background: var(--surface);
+  display: flex; flex-direction: column; min-height: 100dvh; overflow: hidden;
+}
+
+/* Bandeau */
+.topbar {
+  position: sticky; top: 0; z-index: 1000;
+  display: flex; align-items: center; gap: var(--space-3);
+  min-height: var(--topbar-h);
+  padding: var(--space-2) max(var(--space-4), env(safe-area-inset-right))
+           var(--space-2) max(var(--space-4), env(safe-area-inset-left));
+  padding-top: max(var(--space-2), env(safe-area-inset-top));
+  background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow);
+}
+.topbar__logo { height: 40px; width: auto; flex: none; }
+.topbar__text { min-width: 0; }
+.topbar__count { margin: 0; font-size: 1rem; font-weight: 700; line-height: 1.2; }
+.topbar__count strong { color: var(--capner-green-text); }
+.topbar__updated { margin: 0; font-size: .8rem; color: var(--ink-soft); }
+
+/* Carte */
+main { flex: 1; position: relative; min-height: 0; }
+#map { position: absolute; inset: 0; background: var(--surface-muted); }
+.status {
+  position: absolute; left: max(var(--space-4), env(safe-area-inset-left)); right: max(var(--space-4), env(safe-area-inset-right)); top: var(--space-4); z-index: 1000;
+  margin: 0; padding: var(--space-3) var(--space-4); border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow);
+}
+
+/* Drapeau par localité */
+.flag { position: relative; width: 36px; height: 44px; cursor: pointer; }
+.flag img, .flag svg { display: block; width: 36px; height: 44px; }
+.flag__badge {
+  position: absolute; top: -6px; right: -8px; min-width: 22px; height: 22px; padding: 0 6px;
+  border-radius: 11px; background: var(--capner-green-dark); color: #fff;
+  font-size: .75rem; font-weight: 700; line-height: 22px; text-align: center;
+  box-shadow: 0 0 0 2px var(--surface);
+}
+.leaflet-marker-icon:focus-visible { outline: 3px solid var(--capner-blue); outline-offset: 2px; border-radius: 4px; }
+
+/* Clusters */
+.cluster {
+  display: grid; place-items: center; border-radius: 50%;
+  background: var(--capner-blue); color: #fff; font-weight: 700;
+  box-shadow: 0 0 0 4px rgba(79, 109, 181, .3);
+}
+.cluster--s { width: 40px; height: 40px; font-size: .85rem; }
+.cluster--m { width: 50px; height: 50px; font-size: .95rem; }
+.cluster--l { width: 60px; height: 60px; font-size: 1.05rem; background: var(--capner-blue-dark); }
+
+/* Popup */
+.leaflet-popup-content-wrapper { border-radius: var(--radius); box-shadow: var(--shadow); }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--surface); color: var(--ink); }
+.leaflet-popup-content { margin: var(--space-3) var(--space-4); font-family: var(--font); font-size: 1rem; }
+.popup__title { margin: 0 0 var(--space-1); font-weight: 700; }
+.popup__sub { margin: 0 0 var(--space-2); color: var(--ink-soft); font-size: .85rem; }
+.popup__line { margin: 0; }
+.leaflet-container a.leaflet-popup-close-button { color: var(--ink-soft); width: var(--tap); height: var(--tap); font-size: 24px; line-height: var(--tap); }
+.leaflet-container a.leaflet-popup-close-button:hover, .leaflet-container a.leaflet-popup-close-button:focus { color: var(--ink); }
+
+/* Zones de sécurité (encoche, barre d'accueil) */
+.leaflet-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.leaflet-left { padding-left: env(safe-area-inset-left); }
+.leaflet-right { padding-right: env(safe-area-inset-right); }
+
+/* Contrôles tactiles */
+.leaflet-touch .leaflet-bar a { width: var(--tap); height: var(--tap); line-height: var(--tap); }
+
+/* Téléphone : < 768px */
+@media (max-width: 767px) {
+  .topbar__logo { height: 32px; }
+  .topbar__count { font-size: .95rem; }
+  .leaflet-control-zoom { display: none; }
+  .leaflet-popup { max-width: calc(100vw - 32px); }
+}
+/* Tablette : 768–1199px */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .topbar { gap: var(--space-4); }
+  .topbar__text { display: flex; align-items: baseline; gap: var(--space-3); }
+  .leaflet-popup-content { font-size: 1.1rem; }
+}
+/* Ordinateur : ≥ 1200px */
+@media (min-width: 1200px) {
+  .topbar { justify-content: space-between; padding-left: max(var(--space-6), env(safe-area-inset-left)); padding-right: max(var(--space-6), env(safe-area-inset-right)); }
+  .topbar__text { display: flex; align-items: baseline; gap: var(--space-4); text-align: right; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow { transition: none !important; }
+  .leaflet-zoom-anim .leaflet-zoom-animated { transition: none !important; }
+}

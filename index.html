@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Clients signés Capner au Luxembourg</title>
+  <meta name="description" content="Carte des clients ayant signé avec Capner au Luxembourg, par localité.">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+        integrity="sha256-YU3qCpj/P06tdPBJGPax0bm6Q1wltfwjsho5TR4+TYc=" crossorigin="">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-noun-singular="client signé" data-noun-plural="clients signés" data-title-suffix="au Luxembourg">
+  <header class="topbar">
+    <img class="topbar__logo" src="assets/logo-capner.png" alt="Capner" width="116" height="60">
+    <div class="topbar__text">
+      <p class="topbar__count" id="count">Chargement…</p>
+      <p class="topbar__updated" id="updated"></p>
+    </div>
+  </header>
+  <main>
+    <div id="map" role="region" aria-label="Carte des clients signés Capner au Luxembourg"></div>
+    <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+  </main>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"
+          integrity="sha256-Hk4dIpcqOSb0hZjgyvFOP+cEmDXUKKNE/tT542ZbNQg=" crossorigin=""></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
